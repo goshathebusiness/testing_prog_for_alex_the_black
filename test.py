@@ -1,18 +1,3 @@
-from ast import parse
-from cgitb import html
-from unicodedata import name
-import eel
-import sqlite3
-
-eel.init('web') # ne ebu
-#eel.start('index.html') # v konce
-#@eel.expose # pered func for import in js
-
-conn=sqlite3.connect(r"db/Input.db")
-cur=conn.cursor()
-cur.execute("SELECT * FROM main;")
-data=cur.fetchall()
-
 class Question:
     def __init__(self, qnum=0, qtext=0): # qtype - question type   qnum - question number
         self.qtext=qtext
@@ -29,7 +14,9 @@ class Answer:
     def display_info(self):
         print(f"Ответ:{self.atext}, относится к вопросу №{self.qnum}. Правильность: {self.atrue}")
 
-question=[]
-
-
-print("gotovo")
+#a=[(1,2,3,"coglacen"),(2,3,5,"necoglacen")]
+#b={a[1]:"1"}
+##a[1]=Question(qnum=a[2],qtext=a[3])
+tries=0
+h=
+#a.display_info()

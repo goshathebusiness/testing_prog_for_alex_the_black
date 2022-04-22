@@ -1,4 +1,4 @@
-CREATE TABLE [Departments] (  
+CREATE TABLE [Departmentsa33] (  
     [DepartmentId] INTEGER  NOT NULL PRIMARY KEY,  
     [DepartmentName] NVARCHAR(50)  NULL  
 );  
