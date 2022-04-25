@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eel example</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <script type="text/javascript" src="/eel.js"></script> 
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" id="button-test-settings" href="test_settings.html">Test settings</a>
+        <a id="button-number">Display a random number</a>
+        <a id="button-date">Display time and date</a>
+        <a id="button-ip">Display my ip</a>
+      </div>
+    <div>
+        <form action="" method="post" name="Form">
+            <div id="DynamicExtraFieldsContainer">
+              <div id="addDynamicField">
+                <input type="button" id="addDynamicExtraFieldButton" value="Добавить динамическое поле">
+              </div>
+               <div class="DynamicExtraField">
+                    <br>
+                    <label for="DynamicExtraField">Доп. поле </label> <input value="Удаление" type="button" class="DeleteDynamicExtraField">
+                    <br>
+                    <textarea name="DynamicExtraField[]" cols="50">test</textarea>
+                  </div>
+                        </div>
+        </form>
+    </div>
+</body>
+<script src="js/main.js"></script>
+</html>
