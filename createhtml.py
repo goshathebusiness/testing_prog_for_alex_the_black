@@ -3,6 +3,9 @@ from cgitb import html
 from unicodedata import name
 import eel
 import sqlite3
+import urllib
+import urllib3
+import webbrowser
 
 eel.init('web') # ne ebu
 #eel.start('index.html') # v konce
@@ -104,4 +107,7 @@ filea.write(htmlbottom)
 
 filea.close()
 
+
+
 eel.start('reader.html')
+
