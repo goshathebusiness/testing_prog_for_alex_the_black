@@ -54,10 +54,12 @@ for i in range(len(answer)):
     answer[i].display_info()
 
 print("gotovo")
+f=open("web/reader.html", "w", encoding="utf-8")
+f.seek(0)
+f.close
+filea=open('web/reader.html','a', encoding="utf-8")
 
-print(question[2].text)
-
-html1 = f'''<!DOCTYPE html>
+htmltop = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -67,24 +69,30 @@ html1 = f'''<!DOCTYPE html>
     <link rel="stylesheet" href="css/main.css">
     <script type="text/javascript" src="/eel.js"></script> 
 </head>
-<form>'''
-
+<form id="questions" action="handler.php">
+<body>'''
+filea.write(htmltop)
 qalready=0
 aalready=0
 
-while qalready<question:
-q_num_=0
+for i in range(len(question)):
+    htmlloop_q=f'''
+    <p>{question[i].text}</p>'''
+    filea.write(htmlloop_q)
+    for j in range(len(answer)):
+        if answer[j].qnum==i:
+            htmlloop_a=f'''<div>
+            <input type="radio" id="{j}"
+            name="answer_for_question{i}" value="{answer[j].atrue}">
+            <label for="{j}">{answer[j].text}</label>
+            <div>'''
+            filea.write(htmlloop_a)
+        else:
+            pass
+    
 
-html2=f'''<body>
-    <p>{question[qalready].text}</p>
-    <div>
-      <input type="radio" id="{question[qalready].index}"
-             name="{"answer"+str(aalready)}" value="{"answer"+question[qalready].index}">
-      <label for="choice"></label>
-      '''
-html2=html2+"</div>"
-html3=f'''<div>
-      <button type="submit">Submit</button>
+htmlbottom=f'''<div>
+      <input type="submit" form="questions" value="Закончить тест"></input>
     </div>
   </form>
   <pre id="log">
@@ -92,11 +100,8 @@ html3=f'''<div>
 </body>
 <script src="js/main.js"></script>
 </html>'''
+filea.write(htmlbottom)
 
-with open('web/reader.html','w', encoding="utf-8") as file:
-  file.write(html1)
-with open('web/reader.html','a', encoding="utf-8") as file:
-  file.write(html2)
-  file.write(html3)
+filea.close()
 
 eel.start('reader.html')
