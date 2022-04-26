@@ -69,7 +69,7 @@ htmltop = f'''<!DOCTYPE html>
     <link rel="stylesheet" href="css/main.css">
     <script type="text/javascript" src="/eel.js"></script> 
 </head>
-<form id="questions" action="handler.php">
+<form id="test">
 <body>'''
 filea.write(htmltop)
 qalready=0

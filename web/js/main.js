@@ -77,3 +77,11 @@ let newDog = document.createElement('div')
 }
 
 document.querySelector('.btn').addEventListener('click', showMore)
+
+const form = document.getElementById('test');
+form.elements["1"];
+let formTrue = form.value;
+
+form.addEventListener("submit",(event)=>{
+  event.preventDefault();
+});
