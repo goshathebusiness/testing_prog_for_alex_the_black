@@ -57,7 +57,7 @@ print("gotovo")
 
 print(question[2].text)
 
-html = f'''<!DOCTYPE html>
+html1 = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -67,12 +67,36 @@ html = f'''<!DOCTYPE html>
     <link rel="stylesheet" href="css/main.css">
     <script type="text/javascript" src="/eel.js"></script> 
 </head>
-<body>
-  <h1>It's {question[2].text} </h1>
+<form>'''
+
+qalready=0
+aalready=0
+
+while qalready<question:
+q_num_=0
+
+html2=f'''<body>
+    <p>{question[qalready].text}</p>
+    <div>
+      <input type="radio" id="{question[qalready].index}"
+             name="{"answer"+str(aalready)}" value="{"answer"+question[qalready].index}">
+      <label for="choice"></label>
+      '''
+html2=html2+"</div>"
+html3=f'''<div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+  <pre id="log">
+  </pre>
 </body>
+<script src="js/main.js"></script>
 </html>'''
 
-with open('web/reader.html','w') as file:
-  file.write(html)
+with open('web/reader.html','w', encoding="utf-8") as file:
+  file.write(html1)
+with open('web/reader.html','a', encoding="utf-8") as file:
+  file.write(html2)
+  file.write(html3)
 
 eel.start('reader.html')

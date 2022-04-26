@@ -1,33 +1,60 @@
+from ast import parse
+from cgitb import html
+from unicodedata import name
+import eel
+import sqlite3
+
+eel.init('web') # ne ebu
+#eel.start('index.html') # v konce
+#@eel.expose # pered func for import in js
+
+conn=sqlite3.connect(r"db/Input.db")
+cur=conn.cursor()
+cur.execute("SELECT * FROM main;")
+data=cur.fetchall()
+
 class Question:
-    def __init__(self, qnum=0, qtext=0): # qtype - question type   qnum - question number
-        self.qtext=qtext
+    def __init__(self, qnum=0, text=0): # qtype - question type   qnum - question number
+        self.text=text
         self.qnum=qnum
     def display_info(self):
-        print(f"Вопрос:{self.qtext}, является вопросом №{self.qnum}")
+        print(f"Вопрос:{self.text}, является вопросом №{self.qnum}")
 
 class Answer:
-    def __init__(self, atype=0, atrue=0, qnum=0, atext=0): #atype - answer type   atrue - answer true   qnum - question number
-        self.atype=atype
+    def __init__(self, atrue=0, qnum=0, text=0): #atype - answer type   atrue - answer true   qnum - question number
         self.atrue=atrue
         self.qnum=qnum
-        self.atext=atext
+        self.text=text
     def display_info(self):
-        print(f"Ответ:{self.atext}, относится к вопросу №{self.qnum}. Правильность: {self.atrue}")
-
-#a=[(1,2,3,"coglacen"),(2,3,5,"necoglacen")]
-#b={a[1]:"1"}
-##a[1]=Question(qnum=a[2],qtext=a[3])
-#question={"question1":"1","question2":"2"}
-#question[1]=Question(qnum=2, qtext="aye")
-#question[1].display_info
-#a.display_info()
-
+        print(f"Ответ:{self.text}, относится к вопросу №{self.qnum}. Правильность: {self.atrue}")
+print("ae")
+print(data)
 question={}
-question[1]=Question(qnum=1,qtext="aye348")
-question[2]=Question(qnum=2,qtext="aye562")
-question[1].display_info()
-question[2].display_info()
+answer={}
+qkey=0
+akey=0
 
-question[3]=Question(qnum=3,qtext="4443")
+for i in data:
+    if i[0]==1:
+        question[qkey]=Question(qnum=i[2],text=i[3])
+        qkey=qkey+1
+    elif i[0]==0:
+        answer[akey]=Answer(atrue=i[1],qnum=i[2],text=i[3])
+        akey=akey+1
+    else:
+        print("Error")
+    
 print(question)
-print(len(question))
+print(answer)
+
+for i in range(len(question)):
+    question[i].display_info()
+
+for i in range(len(answer)):
+    answer[i].display_info()
+
+print("gotovo")
+
+for i in 
+
+eel.start('reader.html')

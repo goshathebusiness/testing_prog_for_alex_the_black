@@ -9,27 +9,25 @@
     <script type="text/javascript" src="/eel.js"></script> 
 </head>
 <body>
-    <div class="topnav">
-        <a class="active" id="button-test-settings" href="test_settings.html">Test settings</a>
-        <a id="button-number">Display a random number</a>
-        <a id="button-date">Display time and date</a>
-        <a id="button-ip">Display my ip</a>
-      </div>
+  <form>
+    <p>Якшошо то шо?</p>
     <div>
-        <form action="" method="post" name="Form">
-            <div id="DynamicExtraFieldsContainer">
-              <div id="addDynamicField">
-                <input type="button" id="addDynamicExtraFieldButton" value="Добавить динамическое поле">
-              </div>
-               <div class="DynamicExtraField">
-                    <br>
-                    <label for="DynamicExtraField">Доп. поле </label> <input value="Удаление" type="button" class="DeleteDynamicExtraField">
-                    <br>
-                    <textarea name="DynamicExtraField[]" cols="50">test</textarea>
-                  </div>
-                        </div>
-        </form>
+      <input type="radio" id="contactChoice1"
+             name="contact" value="email">
+      <label for="contactChoice1">Не ебу</label>
+      <input type="radio" id="contactChoice2"
+             name="contact" value="phone">
+      <label for="contactChoice2">Стрінги</label>
+      <input type="radio" id="contactChoice3"
+             name="contact" value="mail">
+      <label for="contactChoice3">Ваще пиздец не ебу</label>
     </div>
+    <div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+  <pre id="log">
+  </pre>
 </body>
 <script src="js/main.js"></script>
 </html>
