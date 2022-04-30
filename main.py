@@ -1,35 +1,37 @@
 import eel
-import sqlite3
+import sqlite3 
+#іптортування необхідних бібліотек Python
 
-eel.init('web')
-
-#@eel.expose # pered func for import in js
+eel.init('web') #підключення до каталогу /web
 
 conn=sqlite3.connect(r"db/QuestionsDB.db")
 cur=conn.cursor()
 cur.execute("SELECT * FROM main;")
 data=cur.fetchall()
+#підключення до бази даних
 
 class Question:
-    def __init__(self, qnum=0, text=0): # qtype - question type   qnum - question number
+    def __init__(self, qnum=0, text=0):
         self.text=text
         self.qnum=qnum
     def display_info(self):
         print(f"Вопрос:{self.text}, является вопросом №{self.qnum}")
+#клас питання. Має такі параметри як текст та номер питання
 
 class Answer:
-    def __init__(self, atrue=0, qnum=0, text=0): #atype - answer type   atrue - answer true   qnum - question number
+    def __init__(self, atrue=0, qnum=0, text=0):
         self.atrue=atrue
         self.qnum=qnum
         self.text=text
     def display_info(self):
         print(f"Ответ:{self.text}, относится к вопросу №{self.qnum}. Правильность: {self.atrue}")
-print("ae")
-print(data)
+#клас відпові. Має такі параметри як текст, правильний він чи ні, та до якого питання відноситься
+
 question={}
 answer={}
 qkey=0
 akey=0
+#задання змінних необхідних у подальших діях
 
 for i in data:
     if i[0]==1:
@@ -39,23 +41,14 @@ for i in data:
         answer[akey]=Answer(atrue=i[1],qnum=i[2],text=i[3])
         akey=akey+1
     else:
-        print("Error")
-    
-print(question)
-print(answer)
+        pass
+#присвоювання кожному запису із бази даних класу питання чи відповіді
 
-for i in range(len(question)):
-    question[i].display_info()
-
-for i in range(len(answer)):
-    answer[i].display_info()
-
-
-
-print("gotovo")
-f=open("web/index.html", "w", encoding="utf-8")
+f=open("web/index.html", "w", encoding="utf-8") #очищення файлу index.html для запису питань із бази даних
 f.seek(0)
 f.close
+#очищення файлу index.html для запису питань із бази даних
+
 filea=open('web/index.html','a', encoding="utf-8")
 
 htmltop = f'''<!DOCTYPE html>
@@ -75,8 +68,7 @@ htmltop = f'''<!DOCTYPE html>
 <div class="header">Тест з мови програмування Python</div>
 <div>'''
 filea.write(htmltop)
-qalready=0
-aalready=0
+#запис верхньої незмінної частини файла index.html
 
 for i in range(len(question)):
     htmlloop_q=f'''
@@ -95,7 +87,7 @@ for i in range(len(question)):
             filea.write(htmlloop_a)
         else:
             pass
-    
+#запис кожного питання та усіх відповідей що до нього відносяться
 
 htmlbottom=f'''
     </div>
@@ -105,18 +97,18 @@ htmlbottom=f'''
   </form>
   </div>
 </body>
-<script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/main.js"></script>
 </html>'''
 filea.write(htmlbottom)
+#запис нижньої незмінної частини файла index.html
 
-filea.close()
+filea.close() #закриття файлу, тобто його збереження
 
 @eel.expose
 def CountQuestions():
     len_q=len(question)
     return len_q
+#функція що рахує кількість питань та передає ії у JavaScript
+CountQuestions() #визов функції
 
-CountQuestions()
-
-eel.start('index.html')
+eel.start('index.html')#старт інтерфейсу програми написаного на html
