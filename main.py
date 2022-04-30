@@ -1,17 +1,11 @@
-from ast import parse
-from cgitb import html
-from unicodedata import name
 import eel
 import sqlite3
-import urllib
-import urllib3
-import webbrowser
 
-eel.init('web') # ne ebu
-#eel.start('index.html') # v konce
+eel.init('web')
+
 #@eel.expose # pered func for import in js
 
-conn=sqlite3.connect(r"db/Input.db")
+conn=sqlite3.connect(r"db/QuestionsDB.db")
 cur=conn.cursor()
 cur.execute("SELECT * FROM main;")
 data=cur.fetchall()
@@ -56,58 +50,73 @@ for i in range(len(question)):
 for i in range(len(answer)):
     answer[i].display_info()
 
+
+
 print("gotovo")
-f=open("web/reader.html", "w", encoding="utf-8")
+f=open("web/index.html", "w", encoding="utf-8")
 f.seek(0)
 f.close
-filea=open('web/reader.html','a', encoding="utf-8")
+filea=open('web/index.html','a', encoding="utf-8")
 
 htmltop = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eel example</title>
+    <title>Тестуюча програма</title>
 
     <link rel="stylesheet" href="css/main.css">
     <script type="text/javascript" src="/eel.js"></script> 
 </head>
-<form id="test">
-<body>'''
+<form>
+<body>
+<div class="parent">
+<div class="table">
+<div class="header">Тест з мови програмування Python</div>
+<div>'''
 filea.write(htmltop)
 qalready=0
 aalready=0
 
 for i in range(len(question)):
     htmlloop_q=f'''
-    <p>{question[i].text}</p>'''
+    </div>
+    <div class="cell">
+    <p>{i+1}. {question[i].text}</p>'''
     filea.write(htmlloop_q)
     for j in range(len(answer)):
         if answer[j].qnum==i:
-            htmlloop_a=f'''<div>
+            htmlloop_a=f'''
+            <div class="block">
             <input type="radio" id="{j}"
             name="answer_for_question{i}" value="{answer[j].atrue}">
             <label for="{j}">{answer[j].text}</label>
-            <div>'''
+            </div>'''
             filea.write(htmlloop_a)
         else:
             pass
     
 
-htmlbottom=f'''<div>
-      <input type="submit" form="questions" value="Закончить тест"></input>
+htmlbottom=f'''
     </div>
+          <div class="header" id="result"></div>
+    <button type="button" onclick="count();block()">Закончить тест</button>  
+    </div></div>
   </form>
-  <pre id="log">
-  </pre>
+  </div>
 </body>
+<script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/main.js"></script>
 </html>'''
 filea.write(htmlbottom)
 
 filea.close()
 
+@eel.expose
+def CountQuestions():
+    len_q=len(question)
+    return len_q
 
+CountQuestions()
 
-eel.start('reader.html')
-
+eel.start('index.html')

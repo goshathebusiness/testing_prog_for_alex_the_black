@@ -1,27 +1,17 @@
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+async function count() {
+  //let len_q = await eel.CountQuestions()();
+  len_q=12
+  score=0
+  arr=document.querySelectorAll("input[type='radio']:checked");
+  arr.forEach(element => {
+    score=score+parseInt(element.value)
+  });
+  document.getElementById('result').innerHTML='Результат тесту: '+score+'/'+len_q;
 }
 
-let q_num=3, result_value=0;
-
-submit_button2.onclick=function(){
-  cheked_value=document.querySelector('input[type="radio"]:checked').value;
-
-  result_value=result_value+cheked_value
-  document.getElementById("result").innerHTML=result_value
-}
-
-//if(document.getElementById('summer').checked) {   
-//  var selectedValue = document.getElementById('summer').value;  
-//  alert("Selected Radio Button is: " + selectedValue);    
-//}  
-let final_value=0;
-submit_button1.onclick=function(){
-  for (var i=0;i<q_num;i++){
-   let name="answer_for_question"+String(i);
-    result_value=parseInt(document.getElementsByName(name).value)
-    final_value=final_value+result_value;
-  }
-  console.log(final_value);
-  document.getElementById("result").innerHTML="Vash result "+final_value;
+function block(){
+  arr_d=document.querySelectorAll("input[type='radio']");
+  arr_d.forEach(element => {
+    element.disabled='True';
+  });
 }
